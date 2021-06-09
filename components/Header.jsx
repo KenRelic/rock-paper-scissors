@@ -5,7 +5,6 @@ import ScoreBoard from './ScoreBoard';
 
 
 const Header =()=>{
-
     return (
         <View style={styles.container}>
                 <Text style={styles.text}>ROCK {"\n"}PAPER {"\n"}SCISSORS</Text>

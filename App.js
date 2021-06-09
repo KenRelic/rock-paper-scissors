@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert, Pressable  } from 'react-native';
 
 import Header from "./components/Header";
+import Pieces from "./components/Pieces";
+import Button from "./components/Button";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Header />
       <StatusBar style="auto" />
+      <Header />
+      <Pieces/>
+      <Button title="RULES" />
     </View>
   );
 }
@@ -18,8 +22,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1d3251',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    padding: 24
+    justifyContent: 'space-between',
+    padding:  24,
+    paddingTop: 48,
   },
   text:{
     color:"#fff"
