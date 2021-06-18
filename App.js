@@ -1,6 +1,7 @@
 import "react-native-gesture-handler";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Alert, Pressable, Image } from "react-native";
@@ -9,34 +10,34 @@ import Header from "./components/Header";
 import Pieces from "./components/Pieces";
 import Button from "./components/Button";
 import CustomModal from "./components/Modal";
+import MainScreen from "./components/screens/MainScreen";
+import HomeScreen from "./components/screens/HomeScreen";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const alertUser = () => {
     Alert.alert("hello");
   };
 
-  const [modalVisible, setModalVisible] = React.useState(false);
-
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <StatusBar
-          style="auto"
-          barStyle={"light-content"}
-          backgroundColor="#61dafb"
+      <Stack.Navigator
+        mode="card"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          // options={{ title: "Welcome" }}
         />
-        <Header />
-        <Pieces />
-        <CustomModal
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}>
-          <Image
-            style={styles.rules}
-            source={require("./assets/image-rules1.png")}
-          />
-        </CustomModal>
-        <Button title="RULES" onPress={() => setModalVisible(true)} />
-      </View>
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
+          // options={{ title: "Welcome" }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
