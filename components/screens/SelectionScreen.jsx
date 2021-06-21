@@ -9,9 +9,8 @@ import Pieces from "../Pieces";
 import Button from "../Button";
 import CustomModal from "../Modal";
 
-const MainScreen = ({ navigation, route }) => {
+const SelectionScreen = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [selectionModal, setSelectionModal] = React.useState(false);
 
   return (
     <View style={styles.container}>
@@ -35,20 +34,12 @@ const MainScreen = ({ navigation, route }) => {
           source={require("../../assets/image-rules1.png")}
         />
       </CustomModal>
-      {/* <CustomModal
-        setModalVisible={setSelectionModal}
-        modalVisible={selectionModal}>
-        <Image
-          style={styles.rules}
-          source={require("../../assets/image-rules1.png")}
-        />
-      </CustomModal> */}
-      <Button title="RULES" outline onPress={() => setModalVisible(true)} />
+      <Button title="RULES" onPress={() => setModalVisible(true)} />
     </View>
   );
 };
 
-export default MainScreen;
+export default SelectionScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -20,10 +20,28 @@ export default function App() {
     Alert.alert("hello");
   };
 
+  const horizontalAnimation = {
+    cardStyleInterpolator: ({ current, layouts }) => {
+      return {
+        cardStyle: {
+          transform: [
+            {
+              translateX: current.progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [layouts.screen.width, 0],
+              }),
+            },
+          ],
+        },
+      };
+    },
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        mode="card"
+        mode="modal"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
         }}>
@@ -31,11 +49,13 @@ export default function App() {
           name="Home"
           component={HomeScreen}
           // options={{ title: "Welcome" }}
+          options={horizontalAnimation}
         />
         <Stack.Screen
           name="Main"
           component={MainScreen}
           // options={{ title: "Welcome" }}
+          options={horizontalAnimation}
         />
       </Stack.Navigator>
     </NavigationContainer>

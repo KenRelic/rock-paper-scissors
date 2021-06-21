@@ -4,8 +4,9 @@ import * as React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Alert, Pressable, Image } from "react-native";
 
-import Header from "../Header";
+// import Header from "../Header";
 import Button from "../Button";
+// import Img from "../../assets/rps-bg2.png";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -15,9 +16,16 @@ const HomeScreen = ({ navigation }) => {
         barStyle={"light-content"}
         backgroundColor="#61dafb"
       />
-      <Header />
-
-      <Button title="Play" onPress={() => navigation.navigate("Main")} />
+      <Image style={styles.img} source={require("../../assets/rps-bg2.png")} />
+      <Button
+        title="Play"
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate("Main", {
+            paramKey: "",
+          })
+        }
+      />
     </View>
   );
 };
@@ -29,15 +37,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#1d3251",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     padding: 24,
     paddingTop: 48,
   },
   text: {
     color: "#fff",
   },
-  rules: {
-    width: "100%",
-    height: 300,
+  img: {
+    // width: 700,
+    // height: "75%",
+    flex: 1,
+    resizeMode: "cover", // or 'stretch'
+  },
+  button: {
+    backgroundColor: "red",
   },
 });
