@@ -19,17 +19,19 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
-    // elevation: 3,
+
     width: "100%",
     maxWidth: 150,
     margin: "auto",
   },
   filled: {
     backgroundColor: "#4499ddee",
+    elevation: 3,
     // maxWidth: ,
   },
   outline: {
     backgroundColor: "transparent",
+    paddingHorizontal: 12,
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "#4499ddee",
@@ -41,5 +43,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+    fontFamily: "monospace",
   },
 });

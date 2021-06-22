@@ -11,6 +11,7 @@ import CustomModal from "../Modal";
 
 const MainScreen = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [userSCore, setUserScore] = React.useState(0);
   const [selectionModal, setSelectionModal] = React.useState(false);
 
   return (
@@ -20,12 +21,13 @@ const MainScreen = ({ navigation, route }) => {
         barStyle={"light-content"}
         backgroundColor="#61dafb"
       />
-      <Header />
+      <Header userSCore={userSCore} />
       <Pieces
         setModalVisible={setSelectionModal}
         modalVisible={selectionModal}
         navigation={navigation}
         route={route}
+        setUserScore={setUserScore}
       />
       <CustomModal
         setModalVisible={setModalVisible}

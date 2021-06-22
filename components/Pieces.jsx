@@ -3,9 +3,18 @@ import React from "react";
 import { StyleSheet, Text, View, Image, Alert, Pressable } from "react-native";
 import Button from "./Button";
 
-const Pieces = ({ setSelectionModal, selectionModal, navigation, route }) => {
+const Pieces = ({
+  setSelectionModal,
+  selectionModal,
+  navigation,
+  route,
+  setUserScore,
+}) => {
   const [CPUPick, setCPUPick] = React.useState("default");
-  const piece = route.params.paramKey;
+  const [winOrLose, setWinOrLose] = React.useState("HELLO");
+  const [score, setScore] = React.useState(0);
+
+  const userPiece = route.params.paramKey;
   const icons = {
     Spaper: <Image source={require(`../assets/icon-paper.png`)} />,
     Srock: <Image source={require(`../assets/icon-rock.png`)} />,
@@ -26,25 +35,45 @@ const Pieces = ({ setSelectionModal, selectionModal, navigation, route }) => {
     navigation.navigate("Main", {
       paramKey: e,
     });
-    randomize();
+    randomize(e.replace("S", ""));
   };
 
-  const randomize = () => {
+  const checkWinner = (user, cpu) => {
+    if (user === "rock" && cpu === "scissors") {
+      setUserScore((prev) => prev + 1);
+      setWinOrLose("YOU WIN");
+    } else if (user === "paper" && cpu === "rock") {
+      setUserScore((prev) => prev + 1);
+      setWinOrLose("YOU WIN");
+    } else if (user === "scissors" && cpu === "paper") {
+      setUserScore((prev) => prev + 1);
+      setWinOrLose("YOU WIN");
+    } else if (user === "scissors" && cpu === "rock") {
+      setWinOrLose("YOU LOSE");
+    } else if (user === "rock" && cpu === "paper") {
+      setWinOrLose("YOU LOSE");
+    } else if (user === "paper" && cpu === "scissors") {
+      setWinOrLose("YOU LOSE");
+    } else {
+      setWinOrLose("DRAW");
+    }
+  };
+
+  const randomize = (userPiece) => {
     const index = Math.floor(Math.random() * 5);
     const cpuPick = optionList[index];
     setCPUPick((prev) => cpuPick);
+    checkWinner(userPiece, cpuPick.replace("S", ""));
   };
 
   return (
     <View style={styles.container}>
-      {piece ? (
+      {userPiece ? (
         <View>
           <View style={styles.selectionContainer}>
             <View style={styles.selectedPiece}>
-              <Pressable
-                style={styles[piece]}
-                onPress={() => userSelect("paper")}>
-                {icons[piece]}
+              <Pressable style={styles[userPiece]}>
+                {icons[userPiece]}
               </Pressable>
               <Text style={styles.text}>YOUR CHOICE</Text>
             </View>
@@ -58,9 +87,17 @@ const Pieces = ({ setSelectionModal, selectionModal, navigation, route }) => {
           </View>
 
           <View style={styles.notice}>
-            <Text style={styles.verdict}>You Win</Text>
+            <Text style={styles.verdict}>{winOrLose}</Text>
             <Pressable style={styles.playAgain}>
-              <Button title="PLAY AGAIN" filled />
+              <Button
+                title="PLAY AGAIN"
+                filled
+                onPress={() =>
+                  navigation.navigate("Main", {
+                    paramKey: "",
+                  })
+                }
+              />
             </Pressable>
           </View>
         </View>
@@ -90,8 +127,9 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     textAlign: "center",
     marginBottom: 20,
-    fontSize: 32,
+    fontSize: 48,
     fontWeight: "bold",
+    fontFamily: "monospace",
   },
   notice: {
     marginTop: 40,
@@ -109,6 +147,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 30,
     fontWeight: "bold",
+    fontFamily: "monospace",
   },
   selectionContainer: {
     display: "flex",

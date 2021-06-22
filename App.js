@@ -3,17 +3,25 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Alert, Pressable, Image } from "react-native";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
 
-import Header from "./components/Header";
-import Pieces from "./components/Pieces";
-import Button from "./components/Button";
-import CustomModal from "./components/Modal";
+// import Header from "./components/Header";
+// import Pieces from "./components/Pieces";
+// import Button from "./components/Button";
+// import CustomModal from "./components/Modal";
 import MainScreen from "./components/screens/MainScreen";
 import HomeScreen from "./components/screens/HomeScreen";
 
 const Stack = createStackNavigator();
+
+const customFonts = {
+  "Poppins-bold": require("./assets/fonts/Poppins-Bold.ttf"),
+  "Poppins-medium": require("./assets/fonts/Poppins-Medium.ttf"),
+  "Poppins-regular": require("./assets/fonts/Poppins-Regular.ttf"),
+};
 
 export default function App() {
   const alertUser = () => {
@@ -36,6 +44,12 @@ export default function App() {
       };
     },
   };
+
+  const [isLoaded] = useFonts(customFonts);
+
+  if (!isLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <NavigationContainer>
